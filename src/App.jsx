@@ -7,6 +7,11 @@ import vendors from './data/vendors.js'
 
 function App() {
   const [selectedVendorId, setSelectedVendorId] = useState(vendors[0].id)
+  const [cart, setCart] = useState([])
+
+  function handleAddToCart(item) {
+    setCart((prevCart) => [...prevCart, item])
+  }
 
   const selectedVendor = vendors.find(
     (vendor) => vendor.id === selectedVendorId
@@ -14,7 +19,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header cartCount={cart.length} />
 
       <main className="container">
         <section>
@@ -37,7 +42,10 @@ function App() {
             Menu: {selectedVendor.name}
           </h2>
 
-          <MenuList items={selectedVendor.menu} />
+          <MenuList
+            items={selectedVendor.menu}
+            onAdd={handleAddToCart}
+          />
         </section>
       </main>
 
