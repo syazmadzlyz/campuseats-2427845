@@ -1,6 +1,7 @@
 import Header from './components/Header.jsx'
 import VendorCard from './components/VendorCard.jsx'
 import MenuItemCard from './components/MenuItemCard.jsx'
+import Footer from './components/Footer.jsx'
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           </div>
         </section>
       </main>
+
+      <Footer />
     </>
   )
 }
