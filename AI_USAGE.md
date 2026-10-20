@@ -3,3 +3,11 @@
 - Help received: Setup, troubleshooting and component examples.
 - My changes: Personalised cafeteria and menu details.
 - Correction: Checked menu requirements against the lab sheet.
+
+## Week 2
+- Tool(s): ChatGPT.
+- What I asked for: Troubleshooting and component guidance.
+- What I kept, changed or rejected, and why: Used examples
+  with my own vendor details, menus and prices.
+- One thing the AI got wrong and how I fixed it: Partial
+  editing instructions were unclear, so I used complete files.
