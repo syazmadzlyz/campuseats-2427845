@@ -1,17 +1,11 @@
-function MenuItemCard() {
-  const item = {
-    name: 'Pisang Goreng Cheese',
-    description: 'Fried banana topped with cheese',
-    price: 8,
-    available: true,
-  }
-
+function MenuItemCard({ item }) {
   return (
     <article className="card menu-card">
       <div className="thumb" aria-hidden="true">
         {item.name.charAt(0)}
       </div>
 
+      <p className="tag">{item.category}</p>
       <h3>{item.name}</h3>
       <p className="muted">{item.description}</p>
       <p className="price">RM {item.price.toFixed(2)}</p>

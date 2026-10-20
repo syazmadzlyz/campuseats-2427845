@@ -1,25 +1,25 @@
 import Header from './components/Header.jsx'
-import VendorCard from './components/VendorCard.jsx'
-import MenuItemCard from './components/MenuItemCard.jsx'
+import MenuList from './components/MenuList.jsx'
 import Footer from './components/Footer.jsx'
+import vendors from './data/vendors.js'
 
 function App() {
+  const selectedVendor = vendors[0]
+
   return (
     <>
       <Header />
 
       <main className="container">
         <section>
-          <h2 className="section-title">Today's vendors</h2>
-          <VendorCard />
-        </section>
+          <h2 className="section-title">
+            Menu: {selectedVendor.name}
+          </h2>
 
-        <section>
-          <h2 className="section-title">Popular items</h2>
+          <p className="muted">{selectedVendor.location}</p>
+          <p className="muted">Open: {selectedVendor.openHours}</p>
 
-          <div className="grid">
-            <MenuItemCard />
-          </div>
+          <MenuList items={selectedVendor.menu} />
         </section>
       </main>
 
