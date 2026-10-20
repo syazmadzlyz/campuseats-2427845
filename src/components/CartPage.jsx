@@ -1,6 +1,12 @@
 import CartItem from './CartItem.jsx'
+import CheckoutForm from './CheckoutForm.jsx'
 
-function CartPage({ cart, onChangeQty, onRemove }) {
+function CartPage({
+  cart,
+  onChangeQty,
+  onRemove,
+  onPlaceOrder,
+}) {
   if (cart.length === 0) {
     return (
       <section>
@@ -21,21 +27,25 @@ function CartPage({ cart, onChangeQty, onRemove }) {
     <section>
       <h2 className="section-title">Your cart</h2>
 
-      <div className="card">
-        <ul className="cart-list">
-          {cart.map((line) => (
-            <CartItem
-              key={line.item.id}
-              line={line}
-              onChangeQty={onChangeQty}
-              onRemove={onRemove}
-            />
-          ))}
-        </ul>
+      <div className="cart-layout">
+        <div className="card">
+          <ul className="cart-list">
+            {cart.map((line) => (
+              <CartItem
+                key={line.item.id}
+                line={line}
+                onChangeQty={onChangeQty}
+                onRemove={onRemove}
+              />
+            ))}
+          </ul>
 
-        <p className="cart-total">
-          Total: RM {total.toFixed(2)}
-        </p>
+          <p className="cart-total">
+            Total: RM {total.toFixed(2)}
+          </p>
+        </div>
+
+        <CheckoutForm onPlaceOrder={onPlaceOrder} />
       </div>
     </section>
   )

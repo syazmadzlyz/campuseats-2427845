@@ -15,6 +15,7 @@ function App() {
   const [selectedVendorId, setSelectedVendorId] = useState(null)
   const [cart, setCart] = useState([])
   const [view, setView] = useState('menu')
+  const [lastOrder, setLastOrder] = useState(null)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -114,6 +115,26 @@ function App() {
     )
   }
 
+  function handlePlaceOrder(details) {
+    if (cart.length === 0) {
+      return
+    }
+
+    const total = cart.reduce(
+      (sum, line) => sum + line.item.price * line.qty,
+      0
+    )
+
+    setLastOrder({
+      ...details,
+      items: cart,
+      total,
+    })
+
+    setCart([])
+    setView('done')
+  }
+
   let content
 
   if (view === 'cart') {
@@ -122,7 +143,37 @@ function App() {
         cart={cart}
         onChangeQty={handleChangeQty}
         onRemove={handleRemove}
+        onPlaceOrder={handlePlaceOrder}
       />
+    )
+  } else if (view === 'done' && lastOrder) {
+    content = (
+      <section className="card">
+        <h2>Order placed!</h2>
+        <p>Thank you, {lastOrder.name}.</p>
+        <p>Mahallah: {lastOrder.mahallah}</p>
+        <p>Pickup time: {lastOrder.pickupTime}</p>
+
+        <ul>
+          {lastOrder.items.map((line) => (
+            <li key={line.item.id}>
+              {line.item.name} × {line.qty}
+            </li>
+          ))}
+        </ul>
+
+        <p className="price">
+          Total: RM {lastOrder.total.toFixed(2)}
+        </p>
+
+        <button
+          type="button"
+          className="btn"
+          onClick={() => setView('menu')}
+        >
+          Back to vendors
+        </button>
+      </section>
     )
   } else if (loading) {
     content = <Loading />
