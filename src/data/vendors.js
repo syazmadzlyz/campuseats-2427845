@@ -13,6 +13,7 @@ const vendors = [
         price: 5,
         category: 'Rice',
         available: true,
+        special: true,
       },
       {
         id: '2427845-mp-2',
@@ -118,6 +119,7 @@ const vendors = [
         price: 8,
         category: 'Snacks',
         available: true,
+        special: true,
       },
       {
         id: '2427845-cb-2',
@@ -143,6 +145,7 @@ const vendors = [
         price: 3,
         category: 'Drinks',
         available: true,
+        special: true,
       },
       {
         id: '2427845-dr-2',
@@ -176,6 +179,7 @@ const vendors = [
         price: 5,
         category: 'Noodles',
         available: true,
+        special: true,
       },
     ],
   },
@@ -193,6 +197,7 @@ const vendors = [
         price: 4,
         category: 'Burgers',
         available: true,
+        special: true,
       },
       {
         id: '2427845-bw-2',

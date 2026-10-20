@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from './components/Header.jsx'
 import VendorCard from './components/VendorCard.jsx'
 import MenuList from './components/MenuList.jsx'
+import SpecialBanner from './components/SpecialBanner.jsx'
 import Footer from './components/Footer.jsx'
 import vendors from './data/vendors.js'
 
@@ -9,13 +10,17 @@ function App() {
   const [selectedVendorId, setSelectedVendorId] = useState(vendors[0].id)
   const [cart, setCart] = useState([])
 
-  function handleAddToCart(item) {
-    setCart((prevCart) => [...prevCart, item])
-  }
-
   const selectedVendor = vendors.find(
     (vendor) => vendor.id === selectedVendorId
   )
+
+  const specialItem = selectedVendor.menu.find(
+    (item) => item.special
+  )
+
+  function handleAddToCart(item) {
+    setCart((prevCart) => [...prevCart, item])
+  }
 
   return (
     <>
@@ -41,6 +46,8 @@ function App() {
           <h2 className="section-title">
             Menu: {selectedVendor.name}
           </h2>
+
+          <SpecialBanner item={specialItem} />
 
           <MenuList
             items={selectedVendor.menu}
