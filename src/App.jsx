@@ -3,6 +3,7 @@ import Header from './components/Header.jsx'
 import VendorCard from './components/VendorCard.jsx'
 import MenuList from './components/MenuList.jsx'
 import SpecialBanner from './components/SpecialBanner.jsx'
+import CartPage from './components/CartPage.jsx'
 import Footer from './components/Footer.jsx'
 import { Loading, ErrorMessage } from './components/Status.jsx'
 
@@ -13,6 +14,7 @@ function App() {
   const [reloadKey, setReloadKey] = useState(0)
   const [selectedVendorId, setSelectedVendorId] = useState(null)
   const [cart, setCart] = useState([])
+  const [view, setView] = useState('menu')
 
   useEffect(() => {
     const controller = new AbortController()
@@ -71,13 +73,58 @@ function App() {
     (item) => item.special
   )
 
+  const cartCount = cart.reduce(
+    (sum, line) => sum + line.qty,
+    0
+  )
+
   function handleAddToCart(item) {
-    setCart((prevCart) => [...prevCart, item])
+    setCart((previousCart) => {
+      const existingLine = previousCart.find(
+        (line) => line.item.id === item.id
+      )
+
+      if (existingLine) {
+        return previousCart.map((line) =>
+          line.item.id === item.id
+            ? { ...line, qty: line.qty + 1 }
+            : line
+        )
+      }
+
+      return [...previousCart, { item, qty: 1 }]
+    })
+  }
+
+  function handleChangeQty(itemId, delta) {
+    setCart((previousCart) =>
+      previousCart
+        .map((line) =>
+          line.item.id === itemId
+            ? { ...line, qty: line.qty + delta }
+            : line
+        )
+        .filter((line) => line.qty > 0)
+    )
+  }
+
+  function handleRemove(itemId) {
+    setCart((previousCart) =>
+      previousCart.filter((line) => line.item.id !== itemId)
+    )
   }
 
   let content
 
-  if (loading) {
+  if (view === 'cart') {
+    content = (
+      <CartPage
+        cart={cart}
+        onChangeQty={handleChangeQty}
+        onRemove={handleRemove}
+      />
+    )
+  } else if (loading) {
     content = <Loading />
   } else if (error) {
     content = (
@@ -122,7 +169,11 @@ function App() {
 
   return (
     <>
-      <Header cartCount={cart.length} />
+      <Header
+        cartCount={cartCount}
+        onShowMenu={() => setView('menu')}
+        onShowCart={() => setView('cart')}
+      />
 
       <main className="container">
         {content}
