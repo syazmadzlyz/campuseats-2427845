@@ -8,9 +8,12 @@ function MenuItemCard({ item, onAdd }) {
       <p className="tag">{item.category}</p>
       <h3>{item.name}</h3>
       <p className="muted">{item.description}</p>
-      <p className="price">RM {item.price.toFixed(2)}</p>
+      <p className="price">
+        RM {item.price.toFixed(2)}
+      </p>
 
       <button
+        type="button"
         className="btn"
         disabled={!item.available}
         onClick={() => onAdd(item)}
