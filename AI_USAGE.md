@@ -19,3 +19,11 @@
   Cartitem.jsx to CartItem.jsx to match the import.
 - One thing the AI got wrong and how I fixed it: No incorrect
   troubleshooting advice identified in this step.
+
+  ## Week 4
+- Tool(s): ChatGPT.
+- What I asked for: Brainstorming and help troubleshooting
+  incorrect commands and code errors I could not identify.
+- What I kept or changed: Corrected the syntax errors and
+  disconnected code that ChatGPT identified.
+- Incorrect advice: Misidentified which file contained the error.
