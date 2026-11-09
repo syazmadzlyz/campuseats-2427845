@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router'
+import { useAuth } from '../hooks/useAuth.js'
 
 function getSecondsRemaining() {
   const now = new Date()
@@ -22,7 +24,7 @@ function formatCountdown(totalSeconds) {
     .join(':')
 }
 
-function SpecialBanner({ item }) {
+function SpecialCountdown({ item, name }) {
   const [secondsRemaining, setSecondsRemaining] = useState(
     getSecondsRemaining
   )
@@ -35,13 +37,9 @@ function SpecialBanner({ item }) {
     return () => clearInterval(intervalId)
   }, [])
 
-  if (!item) {
-    return null
-  }
-
   return (
     <aside className="card">
-      <p className="tag">Daily special</p>
+      <p className="tag">Today’s special for {name}</p>
       <h3>{item.name}</h3>
       <p className="muted">{item.description}</p>
       <p className="price">RM {item.price.toFixed(2)}</p>
@@ -56,6 +54,28 @@ function SpecialBanner({ item }) {
       )}
     </aside>
   )
+}
+
+function SpecialBanner({ item }) {
+  const { user, loading } = useAuth()
+  const location = useLocation()
+
+  if (loading || !item) {
+    return null
+  }
+
+  if (!user) {
+    return (
+      <aside className="card">
+        <Link to="/login" state={{ from: location.pathname }}>
+          Log in to see today’s special
+        </Link>
+      </aside>
+    )
+  }
+
+  const name = user.displayName || user.email?.split('@')[0] || 'there'
+  return <SpecialCountdown item={item} name={name} />
 }
 
 export default SpecialBanner
