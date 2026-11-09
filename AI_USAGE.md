@@ -27,3 +27,13 @@
 - What I kept or changed: Corrected the syntax errors and
   disconnected code that ChatGPT identified.
 - Incorrect advice: Misidentified which file contained the error.
+
+  ## Week 5
+- Tool(s): ChatGPT.
+- What I asked for: Help troubleshooting Firebase setup in CampusEats
+  and a redirect issue after logout.
+- What I kept or changed: Kept the guest login prompt. I tested 
+  the banner while signed out and with two accounts.
+- Incorrect advice: The first logout flow sent me to the login page
+  when I signed out from the cart. I changed it so CampusEats goes
+  to the home page before signing out.
